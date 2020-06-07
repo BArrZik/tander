@@ -1,0 +1,10 @@
+.empty_field {
+    border: dashed red;
+}
+
+div.container {
+    margin: auto;
+    width: 20%;
+    border: 3px solid cadetblue;
+    padding: 30px;
+}
