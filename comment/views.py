@@ -1,4 +1,3 @@
-from django.core import serializers
 from django.http import HttpResponse
 from django.shortcuts import render
 import sqlite3
@@ -71,6 +70,13 @@ def regions_load():
     conn.close()
     return regions
 
+def get_region_by_id(id):
+    conn = sqlite3.connect('db.sqlite3')
+    cursor = conn.cursor()
+    cursor.execute(f'SELECT Region FROM "main"."region" WHERE ID = {id}')
+    region = cursor.fetchall()[0][0]
+    conn.close()
+    return region
 
 def get_city_by_region_id(request, region_id=1):
     conn = sqlite3.connect('db.sqlite3')

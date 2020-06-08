@@ -26,7 +26,7 @@ function delete_row(id) {
     {
         $('#comments').html(`<table id="comments">
             <tr>
-                <th>Номер комментария</th>
+                <th>ID комментария</th>
                 <th>Фамилия</th>
                 <th>Имя</th>
                 <th>Отчество</th>

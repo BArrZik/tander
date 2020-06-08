@@ -1,6 +1,6 @@
 
-body {
-  background: linear-gradient(45deg, #a9ddd5, #c097d2);
+html, body {
+  background: linear-gradient(45deg, #a9ddd5, #c097d2) fixed;
 }
 
 div.container {
