@@ -18,4 +18,5 @@ from . import views
 
 urlpatterns = [
     path('comment/', include('comment.urls')),
+    path('view/', include('view.urls'))
 ]

@@ -39,20 +39,23 @@ def comment(request):
     #     html_result += f'<option value="{id}">{region}</option>'
     # print(html_result)
     conn.close()
-    answer = None
+    answer = 'Оставьте комментарий'
 
     if request.method == 'POST':
         conn = sqlite3.connect('db.sqlite3')
         cursor = conn.cursor()
+
         cursor.execute(
-            f'INSERT OR IGNORE INTO "main"."form" ("Surname", "Name", "Patronymic", "Region", "City", "Phone", "E-mail", "Comment") VALUES ("{request.POST["surname"]}", "{request.POST["name"]}", "{request.POST["patronymic"]}", "{request.POST["region"]}", "{request.POST["city"]}", "{request.POST["phone"]}", "{request.POST["e-mail"]}", "{request.POST["comment"]}");')
+            f'INSERT OR IGNORE INTO "main"."form" ("Surname", "Name", "Patronymic", "Region", "City", "Phone", "E-mail", "Comment") \
+            VALUES ("{request.POST["surname"]}", "{request.POST["name"]}", "{request.POST["patronymic"]}", "{request.POST["region"]}", \
+            "{request.POST["city"]}", "{request.POST["phone"]}", "{request.POST["e-mail"]}", "{request.POST["comment"]}");')
         conn.commit()
         conn.close()
-        answer = 'Форма отправлена'
+        answer = 'Комментарий отправлен'
 
     context = {
         'regions': regions_load(),
-        'response': f'<p>{answer}</p>',
+        'response': answer,
         'where': request.path,
     }
 
@@ -64,7 +67,8 @@ def regions_load():
     cursor = conn.cursor()
     cursor.execute('SELECT ID, Region FROM "main"."region"')
     regions = dict(cursor.fetchall())
-
+    conn.commit()
+    conn.close()
     return regions
 
 
@@ -72,7 +76,9 @@ def get_city_by_region_id(request, region_id=1):
     conn = sqlite3.connect('db.sqlite3')
     cursor = conn.cursor()
     cursor.execute(f'SELECT ID, City FROM `main`.`city` WHERE `Region_ID` = {region_id}')
-    citys = dict(cursor.fetchall())
-    data = json.dumps(citys)
-
+    cities = dict(cursor.fetchall())
+    data = json.dumps(cities)
+    conn.commit()
+    conn.close()
     return HttpResponse(data, content_type='application/json')
+

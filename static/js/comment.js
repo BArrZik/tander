@@ -18,17 +18,6 @@ const load_cities = (city_id) => {
 
 
 $(document).ready(function() {
-  fetch_data();
-  function fetch_data() {
-    $.ajax({
-      url: 'region',
-      method: "GET",
-      dataType: 'json',
-      success: function(data) {
-      }
-    });
-
-  }
 
   var validSurname = false;
   var validName = false;
@@ -43,7 +32,6 @@ $(document).ready(function() {
     var name = $('#name').val();
     var phone = $('#phone').val();
     var email = $('#e-mail').val();
-
     var comment = $('#comment').val();
 
     $(".error").remove();
